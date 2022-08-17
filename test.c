@@ -1,72 +1,46 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include "game.h"
+#include "contact.h"
 void menu()
 {
-	printf("************************\n");
-	printf("*********1.play*********\n");
-	printf("*********0.exit*********\n");
-	printf("************************\n");
-}
-void game()
-{
-	char ret = 0;
-	char board[Row][Col] = { 0 };
-	//初始化棋盘的函数
-	InitBoard(board, Row, Col);
-	DisplayBoard(board, Row, Col);
-	//下棋
-	while (1)
-	{
-		PlayerMove(board, Row, Col);
-		ret = IsWin(board, Row, Col);
-		if (ret != 'C')
-		{
-			break;
-		}
-		DisplayBoard(board, Row, Col);
-		ComputerMove(board, Row, Col);
-		ret = IsWin(board, Row, Col);
-		if (ret != 'C')
-		{
-			break;
-		}
-		DisplayBoard(board, Row, Col);
-	}
-		if (ret =='*')
-		{
-			printf("玩家赢了\n");
-		}
-		else if (ret == '#')
-		{
-			printf("电脑赢了\n");
-		}
-		else
-		{
-			printf("平局\n");
-		}
-		DisplayBoard(board, Row, Col);
+	printf("********  1. add       2. del   ********\n");
+	printf("********  3. search    4. modify********\n");
+	printf("********  5. show      6. sort  ********\n");
+	printf("********  0. exit               ********\n");
+	printf("****************************************\n");
 }
 int main()
 {
-	srand((unsigned int)time(NULL));
 	int input = 0;
-	do
+	Contact con;//通讯录
+	InitContact(&con);//初始化通讯录
+	do//菜单
 	{
 		menu();
-		printf("请选择->");
+		printf("请选择->\n");
 		scanf("%d", &input);
 		switch(input)
-		{
-			case 1:
-				game();
-				break;
-			case 0:
-				printf("退出游戏\n");
-				break;
-			default :
-				printf("输入错误\n");
-				break;
-		}
+	{
+		case 1:
+			AddContact(&con);
+			break;
+		case 2:
+			DelContact(&con);
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			ShowContact(&con);
+			break;
+		case 6:
+			break;
+		case 0:
+			printf("退出通讯录\n");
+			break;
+		default:
+			printf("选择错误\n");
+			break;
+	}
 	} while (input);
 	return 0;
 }
