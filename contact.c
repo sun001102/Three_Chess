@@ -41,7 +41,7 @@ void ShowContact(const Contact* pc)
 			                                    pc->date[i].addr);
 	}
 }
-int FindByName(Contact* pc, char name[])
+static int FindByName(Contact* pc, char name[])
 {
 	assert(pc);
 	int i = 0;
@@ -63,7 +63,7 @@ void DelContact(Contact* pc)
 			return;
 		}
 	printf("请输入要删除人的名字：>");
-	scanf("%s ", name);
+	scanf("%s", name);
 	//删除
 	//1.查找
 	int pos = FindByName(pc, name);
@@ -80,5 +80,62 @@ void DelContact(Contact* pc)
 	pc->count--;
 	printf("删除成功\n");
 }
-
-
+void SearchContact(Contact* pc)
+{
+	assert(pc);
+	char name[MAX_NAME] = { 0 };
+	printf("请输入要查找人的名字：>");
+	scanf("%s ", &name);
+	//1.查找
+	int pos = FindByName(pc, name);
+	if (pos == -1)
+	{
+		printf("要查找的人不存在\n");
+		return;
+	}
+	//2.打印
+	printf("%-20s\t%-5s\t%-5s\t%-12s\t%-30s\n", pc->date[pos].name,
+			pc->date[pos].age,
+			pc->date[pos].sex,
+			pc->date[pos].tele,
+			pc->date[pos].addr);
+}
+//修改
+void ModifyContact(Contact* pc)
+{
+	assert(pc);
+	char name[MAX_NAME] = { 0 };
+	printf("请输入要修改人的名字：>");
+	scanf("%s", &name);
+	//1.查找
+	int pos = FindByName(pc, name);
+	if (pos == -1)
+	{
+		printf("要修改的人不存在\n");
+		return;
+	}
+	printf("要修改的人信息已经查找到，接下来开始修改\n");
+	//2.修改
+	printf("请输入名字：>");
+	scanf("%s", pc->date[pos].name);
+	printf("请输入年龄:>");
+	scanf("%s", &(pc->date[pos].age));
+	printf("请输入性别:>");
+	scanf("%s", pc->date[pos].sex);
+	printf("请输入电话:>");
+	scanf("%s", pc->date[pos].sex);
+	printf("请输入地址:>");
+	scanf("%s", pc->date[pos].addr);
+	printf("修改成功\n");
+}
+int cmp_peo_by_name(const void* e1, const void* e2)
+{
+	return strcmp(((PeoInfo*)e1)->name, ((PeoInfo*)e2)->name);
+}
+//按照名字来排序
+void SortContact(Contact* pc)
+{
+	assert(pc);
+	qsort(pc->date, pc->count, sizeof(PeoInfo), cmp_peo_by_name);
+	printf("排序成功\n");
+}

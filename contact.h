@@ -32,3 +32,9 @@ void AddContact(Contact* pc);
 void ShowContact(const Contact* pc);
 //删除通讯录
 void DelContact(Contact* pc);
+//查找通讯录
+void SearchContact(Contact* pc);
+//修改指定联系人
+void ModifyContact(Contact* pc);
+//排序通讯录中的内容
+void SortContact(Contact* pc);
