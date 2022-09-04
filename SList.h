@@ -13,8 +13,8 @@ void SListDestory(SLTNode** pphead);//销毁释放
 SLTNode* BuySLTNode(SLTDataType x);//创建malloc结点的指针
 void SListFind(SLTNode* phead);//查找
 
-void SListPushFront(SLTNode** pphead,SLDataType x);//头插
-void SListPushBack(SLTNode** pphead, SLDataType x);//尾插
+void SListPushFront(SLTNode** pphead,SLTDataType x);//头插
+void SListPushBack(SLTNode** pphead, SLTDataType x);//尾插
 void SListPopFront(SLTNode** pphead);//头删
 void SListPopBack(SLTNode** pphead);//尾删
 
