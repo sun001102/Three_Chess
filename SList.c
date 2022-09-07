@@ -87,3 +87,77 @@ void SListPopBack(SLTNode** pphead)
 		tail = NULL;
 	}
 }
+void SListDestory(SLTNode** pphead)
+{
+	assert(pphead);
+	SLTNode* cur = *pphead;
+	while (cur!=NULL)
+	{
+		SLTNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+	*pphead = NULL;
+}
+SLTNode* SListFind(SLTNode* phead, SLTDataType X)
+{
+	SLTNode* cur = phead;
+	while (cur != NULL)
+	{
+		if (cur->data == x)
+		{
+			return cur;
+		}
+		cur = cur->next;
+	}
+	return NULL;
+}//在pos之前插入
+void SListInsert(SLTNode** pphead, SLTNode* pos, SLTDataType x)
+{
+	assert(pphead);
+	assert(pos);
+	if (pos == *pphead)//头插
+	{
+		SListPushFront(pphead,x);
+	}
+	else
+	{
+		SLTNode* prev = *pphead;
+		while (prev->next != pos)
+		{
+			prev = prev->next;
+		}
+		SLTNode* newnode = BuySLTNode(x);
+		prev->next = newnode;
+		newnode->next = pos;
+	}
+}
+void SListInsertAfter(SLTNode* pos, SLTDataType x)
+{
+	assert(pos);
+	SLTNode* newnode = BuySLTNode(x);
+	pos->next = newnode;
+	newnode->next = pos->next;
+}
+void SListErase(SLTNode** pphead, SLTNode* pos)
+{
+	assert(pphead);
+	assert(pos);
+	SLTNode* prev = NULL;
+	if (*pphead==pos)
+	{
+		SListPopFront(pphead);
+	}
+	else
+	{
+		SLTNode* prev = *pphead;
+		while (prev->next != pos)
+		{
+			prev = prev->next;
+			//检查pos不是链表中节点，参数传错
+			assert(prev);
+		}
+		prev->next = pos->next;
+		free(pos);
+	}
+}
